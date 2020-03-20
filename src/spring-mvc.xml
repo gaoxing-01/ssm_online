@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop.xsd
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+
+	<!-- 配置注解扫描范围 -->
+	<mvc:annotation-driven />
+	<context:component-scan base-package="cn.gx.controller" />
+
+	<!-- 扫描切面类 -->
+	<context:component-scan base-package="cn.gx.aspect" />
+	<!-- 使用基于注解的AspectJ -->
+	<aop:aspectj-autoproxy/>
+
+
+	<!-- 配置多媒体文件解析器 用于文件上传，id必须设置为multipartResolver，因为MultipartResolver
+		接口的实现类CommonsMultipartResolver内部是引用multipartResolver字符串获取该实现类对象并完成文件解析的-->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置上传文件的最大尺寸为5MB -->
+		<property name="maxUploadSize" value="5242880" />
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
+
+
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor><!-- 配置登陆拦截器 -->
+			<mvc:mapping path="/admin/**"/>
+			<bean class="cn.gx.controller.AdminInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+	<!--静态资源不拦截 -->
+	<mvc:resources mapping="/picture/**" location="/picture/" />
+	<mvc:resources mapping="/index/css/**" location="/index/css/" />
+	<mvc:resources mapping="/index/fonts/**" location="/index/fonts/" />
+	<mvc:resources mapping="/index/images/**" location="/index/images/" />
+	<mvc:resources mapping="/index/js/**" location="/index/js/" />
+	<mvc:resources mapping="/index/layer/**" location="/index/layer/" />
+	<mvc:resources mapping="/admin/css/**" location="/admin/css/" />
+	<mvc:resources mapping="/admin/img/**" location="/admin/img/" />
+	<mvc:resources mapping="/admin/js/**" location="/admin/js/" />
+
+
+</beans>
