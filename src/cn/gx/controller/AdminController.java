@@ -53,6 +53,8 @@ public class AdminController {
 		return "/admin/login.jsp";
 	}
 
+
+
 	/**
 	 * 退出
 	 * @return
@@ -339,7 +341,8 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping("/topSave")
-	public @ResponseBody String topSave(Tops tops, 
+	@ResponseBody
+	public String topSave(Tops tops,
 			@RequestParam(required=false, defaultValue="0")byte status,
 			@RequestParam(required=false, defaultValue="1") int page) {
 		int id = topService.add(tops);
@@ -351,7 +354,8 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping("/topDelete")
-	public @ResponseBody String topDelete(Tops tops, 
+	@ResponseBody
+	public String topDelete(Tops tops,
 			@RequestParam(required=false, defaultValue="0")byte status,
 			@RequestParam(required=false, defaultValue="1") int page) {
 		boolean flag = topService.delete(tops);

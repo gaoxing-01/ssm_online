@@ -48,6 +48,7 @@
 						<c:if test="${sessionScope.user==null}">
 							<li><a href="register?flag=-1" <c:if test="${flag==5}">class="active"</c:if>>注册</a></li>
 							<li><a href="login?flag=-1" <c:if test="${flag==6}">class="active"</c:if>>登录</a></li>
+							<li><a href="chpassword.jsp" <c:if test="${flag==7}">class="active"</c:if>>修改密码</a></li>
 						</c:if>
 						<c:if test="${sessionScope.user!=null}">
 							<li><a href="order" <c:if test="${flag==3}">class="active"</c:if>>我的订单</a></li>

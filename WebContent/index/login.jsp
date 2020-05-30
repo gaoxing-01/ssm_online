@@ -26,7 +26,7 @@
 						<h3>用户登录</h3>
 						<div class="input">
 							<span>用户名 <label style="color:red;">*</label></span>
-							<input type="text" name="username" placeholder="请输入用户名" required="required"> 
+							<input type="text" name="username" placeholder="请输入用户名" required="required" value="${username}">
 						</div>
 						<div class="input">
 							<span>密码 <label style="color:red;">*</label></span>

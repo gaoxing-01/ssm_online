@@ -11,7 +11,7 @@
 </head>
 
 <!-- 设置背景图片 -->
-<body style="background-image:url(img/bg.jpg);background-size:100%;">
+<body style="background-image:url(img/ls.jpg);background-size:100%;">
 
 	<div class="container">
 

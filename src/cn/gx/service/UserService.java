@@ -89,7 +89,8 @@ public class UserService {
 	 * @param user
 	 */
 	public boolean update(Users user) {
-		return userDao.updateById(user) > 0;
+		return userDao.updateByIdSelective(user) > 0;
+//		return userDao.updateById(user) > 0;
 	}
 
 	/**

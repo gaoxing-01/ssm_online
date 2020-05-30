@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import cn.gx.entity.Goods;
@@ -21,6 +22,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 /**
@@ -86,8 +90,40 @@ public class UserController{
 			return "redirect:index";
 		} else {
 			model.addAttribute("msg", "用户名或密码错误!");
+			model.addAttribute("username", user.getUsername());
 			return "/index/login.jsp";
 		}
+	}
+
+	/**
+	 * 用户修改密码
+	 * @return
+	 */
+
+	@RequestMapping("/chpassword")
+	public String chpassword(Users user,@RequestParam(value = "password2",required = true)String password2)
+							  {
+		RequestAttributes requestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
+		HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+
+		if (userService.checkUser(user.getUsername(), user.getPassword())){
+			// 获取user
+			Users user1 = userService.get(user.getUsername());
+
+			user1.setPassword(SafeUtil.encode(password2));
+
+			// 更新user
+			boolean flag = userService.update(user1);
+			if (flag) {
+				request.setAttribute("msg", "密码修改成功");
+			} else {
+				request.setAttribute("msg", "密码修改失败");
+			}
+
+		} else {
+			request.setAttribute("msg", "账号与密码不匹配");
+		}
+		return "/index/chpassword.jsp";
 	}
 
 	/**

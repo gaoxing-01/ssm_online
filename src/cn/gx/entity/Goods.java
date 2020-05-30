@@ -2,6 +2,7 @@ package cn.gx.entity;
 
 
 public class Goods {
+
     private Integer id;
 
     private String name;

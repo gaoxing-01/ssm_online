@@ -18,7 +18,6 @@ import java.util.Enumeration;
 public class LogAspect {
 
     private Logger logger = Logger.getLogger(getClass());
-
     // 定义切入点表达式
     @Pointcut("execution(public * cn.gx.controller..*.*(..))")
     // 使用一个返回值为void、方法体为空的方法开命名切入点
@@ -41,7 +40,7 @@ public class LogAspect {
         Enumeration<String> enu = request.getParameterNames();
         while (enu.hasMoreElements()) {
             String name = (String) enu.nextElement();
-            logger.info("name:" + name + "value:" + request.getParameter(name));
+            logger.info("name: " + name + " value: " + request.getParameter(name));
         }
     }
     @AfterReturning(returning = "ret", pointcut = "webLog()")
